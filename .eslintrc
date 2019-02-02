@@ -1,0 +1,64 @@
+{
+  "extends": [
+    "airbnb",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
+    "plugin:flowtype/recommended"
+  ],
+  "env": {
+    "node": true,
+    "browser": true,
+    "es6": true,
+    "jest": true
+  },
+  "plugins": [
+    "react",
+    "flowtype"
+  ],
+  "rules": {
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js"
+        ]
+      }
+    ],
+    "newline-after-var": [
+      "error",
+      "always"
+    ],
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "react/jsx-indent": [
+      2,
+      2
+    ],
+    "react/jsx-indent-props": [
+      2,
+      2
+    ],
+    "no-use-before-define": [
+      "error",
+      {
+        "variables": false
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "parser": "flow",
+        "tabWidth": 2,
+        "trailingComma": "all",
+        "printWidth": 120
+      }
+    ]
+  },
+  "parser": "babel-eslint"
+}

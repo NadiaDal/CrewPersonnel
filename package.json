@@ -1,0 +1,67 @@
+{
+  "name": "crew-personnel",
+  "version": "1.0.0",
+  "description": "App to help with the hiring and onboarding of crew personnel",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --config ./webpack.config.js --mode development"
+  },
+  "keywords": [
+    "crew",
+    "personnel",
+    "hiring"
+  ],
+  "author": "Nadia Daliavska",
+  "license": "ISC",
+  "babel": {
+    "presets": [
+      "@babel/preset-flow",
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/transform-runtime",
+      "@babel/plugin-proposal-class-properties"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.3.0",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.5",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.8.0",
+    "eslint": "^5.12.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-flowtype": "^3.2.1",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "flow-bin": "^0.92.0",
+    "jest": "^24.0.0",
+    "prettier": "1.16.3",
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1",
+    "webpack-dev-server": "^3.1.14"
+  },
+  "dependencies": {
+    "apisauce": "^1.0.2",
+    "normalizr": "^3.3.0",
+    "ramda": "^0.26.1",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-redux": "^6.0.0",
+    "redux": "^4.0.1",
+    "redux-saga": "^1.0.0",
+    "reduxsauce": "^1.0.1",
+    "seamless-immutable": "^7.1.4"
+  }
+}

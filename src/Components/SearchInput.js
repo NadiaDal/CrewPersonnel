@@ -20,8 +20,13 @@ const SearchInput = ({ placeholder, search, handleChange }: SearchInputType) => 
 
 const styles = {
   input: {
-    width: '100%',
-    maxWidth: '300px',
+    width: '300px',
+    maxWidth: '100%',
+    backgroundColor: 'rgba(241, 241, 241, 0.8)',
+    padding: '10px',
+    margin: '10px',
+    wordBreak: 'break-all',
+    borderRadius: '7px',
   },
 };
 

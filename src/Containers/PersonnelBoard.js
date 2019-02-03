@@ -8,10 +8,12 @@ import PersonnelCard, { type PersonnelType } from '../Components/PersonnelCard';
 import MoveButton from '../Components/MoveButton';
 import SearchInput from '../Components/SearchInput';
 
+type MovePersonnelCardType = (category: string, id: number) => void;
+
 type PersonnelBoardPropsType = {
   personnel: Array<PersonnelType>,
   startup: () => void,
-  movePersonnelCard: (category: string, id: number) => void,
+  movePersonnelCard: MovePersonnelCardType,
 };
 
 type PersonnelBoardStateType = {
@@ -37,6 +39,23 @@ class PersonnelBoard extends Component<PersonnelBoardPropsType, PersonnelBoardSt
     });
   };
 
+  renderMoveButton = ({
+    category,
+    id,
+    movePersonnelCard,
+    icon,
+  }: {
+    category: ?string,
+    id: number,
+    movePersonnelCard: MovePersonnelCardType,
+    icon: string,
+  }) =>
+    category ? (
+      <MoveButton icon={icon} onKeyPressHandler={() => {}} onClickHandler={() => movePersonnelCard(category, id)} />
+    ) : (
+      <div />
+    );
+
   renderList = (listName, navigation) => {
     const { personnel, movePersonnelCard } = this.props;
     const list = personnel.filter(({ category }) => category === listName);
@@ -48,27 +67,12 @@ class PersonnelBoard extends Component<PersonnelBoardPropsType, PersonnelBoardSt
 
     return (
       <div style={styles.column}>
+        <div style={styles.columnTitle}>{listName.toUpperCase()}</div>
         {list.map(person =>
           person ? (
             <PersonnelCard key={person.email} person={person} search={search}>
-              {prev ? (
-                <MoveButton
-                  icon={`<`}
-                  onKeyPressHandler={() => {}}
-                  onClickHandler={() => movePersonnelCard(prev, person.id)}
-                />
-              ) : (
-                <div />
-              )}
-              {next ? (
-                <MoveButton
-                  icon={`>`}
-                  onKeyPressHandler={() => {}}
-                  onClickHandler={() => movePersonnelCard(next, person.id)}
-                />
-              ) : (
-                <div />
-              )}
+              {this.renderMoveButton({ category: prev, id: person.id, movePersonnelCard, icon: `<` })}
+              {this.renderMoveButton({ category: next, id: person.id, movePersonnelCard, icon: `>` })}
             </PersonnelCard>
           ) : null,
         )}
@@ -82,33 +86,63 @@ class PersonnelBoard extends Component<PersonnelBoardPropsType, PersonnelBoardSt
     } = this.state;
 
     return (
-      <div>
-        <section style={{ display: 'flex', flexDirection: 'column' }}>
+      <main style={styles.container}>
+        <section style={styles.inputContainer}>
           <SearchInput
             key="byName"
-            placeholder="Type name"
+            placeholder="Search by name"
             search={name}
             handleChange={(value: string) => this.handleSearch(value, 'name')}
           />
           <SearchInput
             key="byLocation"
-            placeholder="Type city"
+            placeholder="Search by city"
             search={location}
             handleChange={(value: string) => this.handleSearch(value, 'location')}
           />
         </section>
-        <section style={{ display: 'flex' }}>
+        <section style={styles.boardContainer}>
           {this.renderList(APPLIED, [null, INTERVIEWING])}
           {this.renderList(INTERVIEWING, [APPLIED, HIRED])}
           {this.renderList(HIRED, [INTERVIEWING, null])}
         </section>
-      </div>
+      </main>
     );
   }
 }
 
 const styles = {
-  column: { width: '33%', display: 'flex', flexDirection: 'column' },
+  container: {
+    padding: '15px',
+    background: '#1e372c',
+    backgroundImage: '-webkit-radial-gradient(top, circle cover, #1e372c 0%, #252233 80%)',
+    fontFamily: 'Verdana',
+    minHeight: '100vh',
+  },
+  inputContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    paddingBottom: '20px',
+    marginBottom: '20px',
+    borderBottom: '2px solid rgba(241, 241, 241, 0.8)',
+  },
+  boardContainer: {
+    display: 'flex',
+  },
+  column: {
+    width: '33%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  columnTitle: {
+    fontSize: '18px',
+    backgroundColor: 'rgba(241, 241, 241, 0.8)',
+    padding: '10px',
+    margin: '10px',
+    wordBreak: 'break-all',
+    borderRadius: '7px',
+    textAlign: 'center',
+  },
 };
 
 const mapStateToProps = ({ personnelData: { personnel } }) => ({

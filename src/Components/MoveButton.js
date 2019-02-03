@@ -18,9 +18,11 @@ const MoveButton = ({ onClickHandler, onKeyPressHandler, icon }: MoveButtonType)
 
 const styles = {
   container: {
+    display: 'flex',
     width: 30,
-    padding: 10,
-    backgroundColor: 'green',
+    padding: '2px 5px',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 };
 

@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { all, isEmpty, keys, pipe } from 'ramda';
+import { isVisibleBySearch } from '../Services/Helper';
 
 export type PersonnelType = {
   id: number,
@@ -17,25 +17,6 @@ export type PersonnelCardType = {
   person: PersonnelType,
   children: any,
 };
-
-const isSubStringByProp = ({
-  prop,
-  item,
-  search,
-}: {
-  prop: string,
-  item: PersonnelType,
-  search: { name: string, location: string },
-}) => {
-  if (isEmpty(search[prop])) return true;
-  return item[prop].toLowerCase().indexOf(search[prop].toLowerCase()) !== -1;
-};
-
-export const isVisibleBySearch = (item: PersonnelType, search: { name: string, location: string }) =>
-  pipe(
-    keys,
-    all(prop => isSubStringByProp({ prop, item, search })),
-  )(search);
 
 const PersonnelCard = ({ person, search, children }: PersonnelCardType) => {
   const { name, email, picture, location } = person;

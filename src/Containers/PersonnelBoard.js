@@ -59,9 +59,6 @@ class PersonnelBoard extends Component<PersonnelBoardPropsType, PersonnelBoardSt
   renderList = (listName, navigation) => {
     const { personnel, movePersonnelCard } = this.props;
     const list = personnel.filter(({ category }) => category === listName);
-
-    if (list === null) return null;
-
     const { search } = this.state;
     const [prev, next] = navigation;
 

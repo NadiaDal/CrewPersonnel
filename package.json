@@ -4,7 +4,8 @@
   "description": "App to help with the hiring and onboarding of crew personnel",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config ./webpack.config.js --mode development"
+    "start": "webpack-dev-server --config ./webpack.config.js --mode development",
+    "test": "jest"
   },
   "keywords": [
     "crew",
@@ -48,9 +49,18 @@
     "flow-bin": "^0.92.0",
     "jest": "^24.0.0",
     "prettier": "1.16.3",
+    "react-test-renderer": "^16.7.0",
     "webpack": "^4.29.0",
     "webpack-cli": "^3.2.1",
     "webpack-dev-server": "^3.1.14"
+  },
+  "jest": {
+    "testMatch": [
+      "**/?(*.)(spec|test).js?(x)"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "dependencies": {
     "apisauce": "^1.0.2",

@@ -1,10 +1,10 @@
 // @flow
 
-import { all, assoc, evolve, isEmpty, join, keys, map, path, pick, pipe, values } from 'ramda';
+import { all, assoc, evolve, isEmpty, isNil, join, keys, map, path, pick, pipe, values, propOr, filter } from 'ramda';
 import { APPLIED } from '../Redux/PersonnelRedux';
 import type { PersonnelType } from '../Components/PersonnelCard';
 
-export const capitalize = (str: string): string =>
+export const formatter = (str: string): string =>
   str
     .charAt(0)
     .toUpperCase()
@@ -12,17 +12,17 @@ export const capitalize = (str: string): string =>
 
 export const transformName = pipe(
   values,
-  map(capitalize),
+  map(formatter),
   join(' '),
 );
 
 export const transformLocation = pipe(
-  path(['city']),
-  capitalize,
+  propOr('', 'city'),
+  formatter,
 );
 
-export const transformUser = pipe(
-  path(['data', 'results']),
+export const transformUsers = pipe(
+  filter(item => !isEmpty(item) && !isNil(item)),
   map(
     pipe(
       pick(['name', 'email', 'picture', 'location']),
@@ -36,7 +36,7 @@ export const transformUser = pipe(
   ),
 );
 
-const isSubStringByProp = ({
+export const isSubStringByProp = ({
   prop,
   item,
   search,

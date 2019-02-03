@@ -1,0 +1,241 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`personnel card match by location renders correctly 1`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "rgba(241, 241, 241, 0.8)",
+      "borderRadius": "7px",
+      "margin": "10px",
+      "padding": "10px 15px",
+      "wordBreak": "break-all",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "marginRight": "20px",
+        }
+      }
+    >
+      <img
+        alt=""
+        src="https://randomuser.me/api/portraits/med/men/91.jpg"
+        style={
+          Object {
+            "borderRadius": "50%",
+            "height": 60,
+            "width": 60,
+          }
+        }
+      />
+    </div>
+    <div>
+      <div
+        style={
+          Object {
+            "fontSize": "16px",
+            "marginBottom": "10px",
+          }
+        }
+      >
+        Mr Brayden Hamilton
+      </div>
+      <div
+        style={
+          Object {
+            "fontSize": "14px",
+          }
+        }
+      >
+        Nottingham
+      </div>
+      <div
+        style={
+          Object {
+            "fontSize": "14px",
+          }
+        }
+      >
+        brayden.hamilton@example.com
+      </div>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "justifyContent": "space-between",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`personnel card match by name renders correctly 1`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "rgba(241, 241, 241, 0.8)",
+      "borderRadius": "7px",
+      "margin": "10px",
+      "padding": "10px 15px",
+      "wordBreak": "break-all",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "marginRight": "20px",
+        }
+      }
+    >
+      <img
+        alt=""
+        src="https://randomuser.me/api/portraits/med/men/91.jpg"
+        style={
+          Object {
+            "borderRadius": "50%",
+            "height": 60,
+            "width": 60,
+          }
+        }
+      />
+    </div>
+    <div>
+      <div
+        style={
+          Object {
+            "fontSize": "16px",
+            "marginBottom": "10px",
+          }
+        }
+      >
+        Mr Brayden Hamilton
+      </div>
+      <div
+        style={
+          Object {
+            "fontSize": "14px",
+          }
+        }
+      >
+        Nottingham
+      </div>
+      <div
+        style={
+          Object {
+            "fontSize": "14px",
+          }
+        }
+      >
+        brayden.hamilton@example.com
+      </div>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "justifyContent": "space-between",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`personnel card with empty search fields renders correctly 1`] = `
+<div
+  style={
+    Object {
+      "backgroundColor": "rgba(241, 241, 241, 0.8)",
+      "borderRadius": "7px",
+      "margin": "10px",
+      "padding": "10px 15px",
+      "wordBreak": "break-all",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "marginRight": "20px",
+        }
+      }
+    >
+      <img
+        alt=""
+        src="https://randomuser.me/api/portraits/med/men/91.jpg"
+        style={
+          Object {
+            "borderRadius": "50%",
+            "height": 60,
+            "width": 60,
+          }
+        }
+      />
+    </div>
+    <div>
+      <div
+        style={
+          Object {
+            "fontSize": "16px",
+            "marginBottom": "10px",
+          }
+        }
+      >
+        Mr Brayden Hamilton
+      </div>
+      <div
+        style={
+          Object {
+            "fontSize": "14px",
+          }
+        }
+      >
+        Nottingham
+      </div>
+      <div
+        style={
+          Object {
+            "fontSize": "14px",
+          }
+        }
+      >
+        brayden.hamilton@example.com
+      </div>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "justifyContent": "space-between",
+      }
+    }
+  />
+</div>
+`;

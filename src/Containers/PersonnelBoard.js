@@ -21,9 +21,12 @@ type PersonnelBoardStateType = {
 };
 
 class PersonnelBoard extends Component<PersonnelBoardPropsType, PersonnelBoardStateType> {
-  state = {
-    search: { name: '', location: '' },
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      search: { name: '', location: '' },
+    };
+  }
 
   componentDidMount() {
     const { startup } = this.props;

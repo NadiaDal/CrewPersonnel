@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`search input by location renders correctly 1`] = `
+<input
+  onChange={[Function]}
+  placeholder="Search by city"
+  style={
+    Object {
+      "backgroundColor": "rgba(241, 241, 241, 0.8)",
+      "borderRadius": "7px",
+      "margin": "10px",
+      "maxWidth": "100%",
+      "padding": "10px",
+      "width": "300px",
+      "wordBreak": "break-all",
+    }
+  }
+  type="text"
+  value="Nottingham"
+/>
+`;
+
+exports[`search input by name renders correctly 1`] = `
+<input
+  onChange={[Function]}
+  placeholder="Search by name"
+  style={
+    Object {
+      "backgroundColor": "rgba(241, 241, 241, 0.8)",
+      "borderRadius": "7px",
+      "margin": "10px",
+      "maxWidth": "100%",
+      "padding": "10px",
+      "width": "300px",
+      "wordBreak": "break-all",
+    }
+  }
+  type="text"
+  value="Bra"
+/>
+`;

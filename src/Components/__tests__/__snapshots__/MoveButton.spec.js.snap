@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`move to left renders correctly 1`] = `
+<div
+  onClick={[Function]}
+  onKeyPress={[Function]}
+  role="button"
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+      "justifyContent": "center",
+      "padding": "2px 5px",
+      "width": 30,
+    }
+  }
+  tabIndex="0"
+>
+  &lt;
+</div>
+`;
+
+exports[`move to right renders correctly 1`] = `
+<div
+  onClick={[Function]}
+  onKeyPress={[Function]}
+  role="button"
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+      "justifyContent": "center",
+      "padding": "2px 5px",
+      "width": 30,
+    }
+  }
+  tabIndex="0"
+>
+  &gt;
+</div>
+`;

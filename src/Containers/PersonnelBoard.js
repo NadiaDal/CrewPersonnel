@@ -1,48 +1,87 @@
 // @flow
 
 import React, { Component } from 'react';
-import Api from '../../Services/Api';
+import { connect } from 'react-redux';
+import StartupActions from '../Redux/StartupRedux';
+import PersonnelActions, { APPLIED, INTERVIEWING, HIRED } from '../Redux/PersonnelRedux';
+import PersonnelCard, { type PersonnelType } from '../Components/PersonnelCard';
+import MoveButton from '../Components/MoveButton';
 
-const api = Api.create();
+type PersonnelBoardPropsType = {
+  personnel: Array<PersonnelType>,
+  startup: () => void,
+  movePersonnelCard: (category: string, id: number) => void,
+};
 
-class PersonnelBoard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      users: [],
-    };
-  }
-
+class PersonnelBoard extends Component<PersonnelBoardPropsType> {
   componentDidMount() {
-    api.getUsers().then(({ data: { results } }) => this.setState({ users: results }));
+    const { startup } = this.props;
+
+    startup();
   }
 
-  render() {
-    const { users } = this.state;
+  renderList = (listName, navigation) => {
+    const { personnel, movePersonnelCard } = this.props;
+    const [prev, next] = navigation;
+    const list = personnel.filter(({ category }) => category === listName);
+
+    if (list === null) return null;
 
     return (
-      <div style={{ display: 'flex' }}>
-        {users &&
-          users.map(({ name: { first, last }, picture: { medium } }) => (
-            <div
-              key={`${first}-${last}`}
-              style={{
-                border: '2px solid green',
-                backgroundColor: '#f1f1f1',
-                width: '300px',
-                padding: '10px',
-                margin: '10px',
-              }}
-            >
-              <div style={{ width: 60, height: 60, borderRadius: '50%', overflow: 'hidden' }}>
-                <img src={medium} alt="" />
-              </div>
-              <div>{first}</div>
-            </div>
-          ))}
+      <div style={styles.column}>
+        {list.map(person =>
+          person ? (
+            <PersonnelCard key={person.email} {...person}>
+              {prev ? (
+                <MoveButton
+                  icon={`<`}
+                  onKeyPressHandler={() => {}}
+                  onClickHandler={() => movePersonnelCard(prev, person.id)}
+                />
+              ) : (
+                <div />
+              )}
+              {next ? (
+                <MoveButton
+                  icon={`>`}
+                  onKeyPressHandler={() => {}}
+                  onClickHandler={() => movePersonnelCard(next, person.id)}
+                />
+              ) : (
+                <div />
+              )}
+            </PersonnelCard>
+          ) : null,
+        )}
       </div>
+    );
+  };
+
+  render() {
+    return (
+      <section style={{ display: 'flex' }}>
+        {this.renderList(APPLIED, [null, INTERVIEWING])}
+        {this.renderList(INTERVIEWING, [APPLIED, HIRED])}
+        {this.renderList(HIRED, [INTERVIEWING, null])}
+      </section>
     );
   }
 }
 
-export default PersonnelBoard;
+const styles = {
+  column: { width: '33%', display: 'flex', flexDirection: 'column' },
+};
+
+const mapStateToProps = ({ personnelData: { personnel } }) => ({
+  personnel,
+});
+
+const mapDispatchToProps = dispatch => ({
+  startup: () => dispatch(StartupActions.startup()),
+  movePersonnelCard: (category, id) => dispatch(PersonnelActions.personnelMoveTo(category, id)),
+});
+
+export default connect<any, PersonnelBoardPropsType>(
+  mapStateToProps,
+  mapDispatchToProps,
+)(PersonnelBoard);

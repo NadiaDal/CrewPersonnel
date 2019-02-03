@@ -10,7 +10,7 @@ type MoveButtonType = {
 
 const MoveButton = ({ onClickHandler, onKeyPressHandler, icon }: MoveButtonType) => {
   return (
-    <div onClick={onClickHandler} onKeyPress={onKeyPressHandler} role="button" tabIndex="0" style={styles.container}>
+    <div role="button" tabIndex="0" onClick={onClickHandler} onKeyPress={onKeyPressHandler} style={styles.container}>
       {icon}
     </div>
   );

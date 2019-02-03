@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import { all, isEmpty, keys, pipe } from 'ramda';
 
 export type PersonnelType = {
   id: number,
@@ -9,20 +10,49 @@ export type PersonnelType = {
   picture: string,
   location: string,
   category: string,
+};
+
+export type PersonnelCardType = {
+  search: Object,
+  person: PersonnelType,
   children: any,
 };
 
-const PersonnelCard = ({ id, category, name, email, picture, location, children }: PersonnelType) => (
-  <div key={`${category}-${id}`} style={styles.container}>
-    <div style={styles.image}>
-      <img src={picture} alt="" />
+const isSubStringByProp = ({
+  prop,
+  item,
+  search,
+}: {
+  prop: string,
+  item: PersonnelType,
+  search: { name: string, location: string },
+}) => {
+  if (isEmpty(search[prop])) return true;
+  return item[prop].toLowerCase().indexOf(search[prop].toLowerCase()) !== -1;
+};
+
+export const isVisibleBySearch = (item: PersonnelType, search: { name: string, location: string }) =>
+  pipe(
+    keys,
+    all(prop => isSubStringByProp({ prop, item, search })),
+  )(search);
+
+const PersonnelCard = ({ person, search, children }: PersonnelCardType) => {
+  const { name, email, picture, location } = person;
+  const isVisible = isVisibleBySearch(person, search);
+
+  return isVisible ? (
+    <div style={styles.container}>
+      <div style={styles.image}>
+        <img src={picture} alt="" />
+      </div>
+      <div style={styles.name}>{name}</div>
+      <div style={styles.text}>{location}</div>
+      <div style={styles.text}>{email}</div>
+      <div style={styles.buttonContainer}>{children}</div>
     </div>
-    <div style={styles.name}>{name}</div>
-    <div style={styles.text}>{location}</div>
-    <div style={styles.text}>{email}</div>
-    <div style={styles.buttonContainer}>{children}</div>
-  </div>
-);
+  ) : null;
+};
 
 const styles = {
   container: {

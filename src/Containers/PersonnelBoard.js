@@ -6,6 +6,7 @@ import StartupActions from '../Redux/StartupRedux';
 import PersonnelActions, { APPLIED, INTERVIEWING, HIRED } from '../Redux/PersonnelRedux';
 import PersonnelCard, { type PersonnelType } from '../Components/PersonnelCard';
 import MoveButton from '../Components/MoveButton';
+import SearchInput from '../Components/SearchInput';
 
 type PersonnelBoardPropsType = {
   personnel: Array<PersonnelType>,
@@ -13,25 +14,43 @@ type PersonnelBoardPropsType = {
   movePersonnelCard: (category: string, id: number) => void,
 };
 
-class PersonnelBoard extends Component<PersonnelBoardPropsType> {
+type PersonnelBoardStateType = {
+  search: { name: string, location: string },
+};
+
+class PersonnelBoard extends Component<PersonnelBoardPropsType, PersonnelBoardStateType> {
+  state = {
+    search: { name: '', location: '' },
+  };
+
   componentDidMount() {
     const { startup } = this.props;
 
     startup();
   }
 
+  handleSearch = (searchText: string, byProp: string): void => {
+    this.setState(({ search }) => {
+      const updatedSearch = { ...search, [byProp]: searchText };
+
+      return { search: updatedSearch };
+    });
+  };
+
   renderList = (listName, navigation) => {
     const { personnel, movePersonnelCard } = this.props;
-    const [prev, next] = navigation;
     const list = personnel.filter(({ category }) => category === listName);
 
     if (list === null) return null;
+
+    const { search } = this.state;
+    const [prev, next] = navigation;
 
     return (
       <div style={styles.column}>
         {list.map(person =>
           person ? (
-            <PersonnelCard key={person.email} {...person}>
+            <PersonnelCard key={person.email} person={person} search={search}>
               {prev ? (
                 <MoveButton
                   icon={`<`}
@@ -58,12 +77,32 @@ class PersonnelBoard extends Component<PersonnelBoardPropsType> {
   };
 
   render() {
+    const {
+      search: { name, location },
+    } = this.state;
+
     return (
-      <section style={{ display: 'flex' }}>
-        {this.renderList(APPLIED, [null, INTERVIEWING])}
-        {this.renderList(INTERVIEWING, [APPLIED, HIRED])}
-        {this.renderList(HIRED, [INTERVIEWING, null])}
-      </section>
+      <div>
+        <section style={{ display: 'flex', flexDirection: 'column' }}>
+          <SearchInput
+            key="byName"
+            placeholder="Type name"
+            search={name}
+            handleChange={(value: string) => this.handleSearch(value, 'name')}
+          />
+          <SearchInput
+            key="byLocation"
+            placeholder="Type city"
+            search={location}
+            handleChange={(value: string) => this.handleSearch(value, 'location')}
+          />
+        </section>
+        <section style={{ display: 'flex' }}>
+          {this.renderList(APPLIED, [null, INTERVIEWING])}
+          {this.renderList(INTERVIEWING, [APPLIED, HIRED])}
+          {this.renderList(HIRED, [INTERVIEWING, null])}
+        </section>
+      </div>
     );
   }
 }

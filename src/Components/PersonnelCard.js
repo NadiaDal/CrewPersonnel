@@ -2,18 +2,10 @@
 
 import React from 'react';
 import { isVisibleBySearch } from '../Services/Helper';
-
-export type PersonnelType = {
-  id: number,
-  name: string,
-  email: string,
-  picture: string,
-  location: string,
-  category: string,
-};
+import { type PersonnelType, type SearchType } from '../Redux/PersonnelRedux';
 
 export type PersonnelCardType = {
-  search: Object,
+  search: SearchType,
   person: PersonnelType,
   children: any,
 };

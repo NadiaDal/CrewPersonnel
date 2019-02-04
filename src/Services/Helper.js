@@ -2,7 +2,7 @@
 
 import { all, assoc, evolve, isEmpty, isNil, join, keys, map, path, pick, pipe, values, propOr, filter } from 'ramda';
 import { APPLIED } from '../Redux/PersonnelRedux';
-import type { PersonnelType } from '../Components/PersonnelCard';
+import type { PersonnelType } from '../Redux/PersonnelRedux';
 
 export const formatter = (str: string): string =>
   str

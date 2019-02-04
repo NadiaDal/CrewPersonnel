@@ -3,10 +3,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import StartupActions from '../Redux/StartupRedux';
-import PersonnelActions, { APPLIED, INTERVIEWING, HIRED } from '../Redux/PersonnelRedux';
-import PersonnelCard, { type PersonnelType } from '../Components/PersonnelCard';
+import PersonnelActions, {
+  APPLIED,
+  INTERVIEWING,
+  HIRED,
+  type PersonnelType,
+  type SearchType,
+} from '../Redux/PersonnelRedux';
 import MoveButton from '../Components/MoveButton';
 import SearchInput from '../Components/SearchInput';
+import PersonnelCard from '../Components/PersonnelCard';
 
 type MovePersonnelCardType = (category: string, id: number) => void;
 
@@ -14,20 +20,11 @@ type PersonnelBoardPropsType = {
   personnel: Array<PersonnelType>,
   startup: () => void,
   movePersonnelCard: MovePersonnelCardType,
+  search: SearchType,
+  saveSearch: (search: { [string]: string }) => void,
 };
 
-type PersonnelBoardStateType = {
-  search: { name: string, location: string },
-};
-
-class PersonnelBoard extends Component<PersonnelBoardPropsType, PersonnelBoardStateType> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      search: { name: '', location: '' },
-    };
-  }
-
+class PersonnelBoard extends Component<PersonnelBoardPropsType> {
   componentDidMount() {
     const { startup } = this.props;
 
@@ -35,11 +32,9 @@ class PersonnelBoard extends Component<PersonnelBoardPropsType, PersonnelBoardSt
   }
 
   handleSearch = (searchText: string, byProp: string): void => {
-    this.setState(({ search }) => {
-      const updatedSearch = { ...search, [byProp]: searchText };
+    const { saveSearch } = this.props;
 
-      return { search: updatedSearch };
-    });
+    saveSearch({ [byProp]: searchText });
   };
 
   renderMoveButton = ({
@@ -60,9 +55,8 @@ class PersonnelBoard extends Component<PersonnelBoardPropsType, PersonnelBoardSt
     );
 
   renderList = (listName, navigation) => {
-    const { personnel, movePersonnelCard } = this.props;
+    const { personnel, search, movePersonnelCard } = this.props;
     const list = personnel.filter(({ category }) => category === listName);
-    const { search } = this.state;
     const [prev, next] = navigation;
 
     return (
@@ -83,7 +77,7 @@ class PersonnelBoard extends Component<PersonnelBoardPropsType, PersonnelBoardSt
   render() {
     const {
       search: { name, location },
-    } = this.state;
+    } = this.props;
 
     return (
       <main style={styles.container}>
@@ -145,13 +139,15 @@ const styles = {
   },
 };
 
-const mapStateToProps = ({ personnelData: { personnel } }) => ({
+const mapStateToProps = ({ personnelData: { personnel, search } }) => ({
   personnel,
+  search,
 });
 
 const mapDispatchToProps = dispatch => ({
   startup: () => dispatch(StartupActions.startup()),
   movePersonnelCard: (category, id) => dispatch(PersonnelActions.personnelMoveTo(category, id)),
+  saveSearch: search => dispatch(PersonnelActions.personnelSearch(search)),
 });
 
 export default connect<any, PersonnelBoardPropsType>(

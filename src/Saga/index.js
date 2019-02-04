@@ -5,7 +5,7 @@ import { StartupTypes } from '../Redux/StartupRedux';
 import { PersonnelTypes } from '../Redux/PersonnelRedux';
 
 import startup from './StartupSaga';
-import getAppliedPersonnel from './PersonnelSaga';
+import { getAppliedPersonnel, saveSearchToLocalStorage } from './PersonnelSaga';
 
 const api = API.create();
 
@@ -13,5 +13,6 @@ export default function* root() {
   yield all([
     takeLatest(StartupTypes.STARTUP, startup),
     takeLatest(PersonnelTypes.PERSONNEL_FETCH, getAppliedPersonnel, api),
+    takeLatest(PersonnelTypes.PERSONNEL_SEARCH, saveSearchToLocalStorage),
   ]);
 }

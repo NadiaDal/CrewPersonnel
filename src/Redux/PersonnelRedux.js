@@ -2,7 +2,7 @@
 
 import { createReducer, createActions } from 'reduxsauce';
 import Immutable from 'seamless-immutable';
-import { assoc, update } from 'ramda';
+import { assoc, update, isNil } from 'ramda';
 
 const { Types, Creators } = createActions({
   personnelFetch: null,
@@ -48,10 +48,13 @@ export const INITIAL_STATE: PersonnelDataType = Immutable({
 
 export const fetchApplied = (state: PersonnelDataType) => state.merge({ fetching: true });
 
-export const fetchAppliedSuccess = (state: PersonnelDataType, { personnel }: { personnel: Array<PersonnelType> }) =>
-  state.merge({ fetching: false, error: false, personnel });
+export const fetchAppliedSuccess = (state: PersonnelDataType, { personnel }: { personnel: Array<PersonnelType> }) => {
+  if (isNil(personnel)) return state.merge({ fetching: false, error: false });
 
-export const fetchAppliedSuccessFailure = (state: PersonnelDataType) => state.merge({ fetching: false, error: true });
+  return state.merge({ fetching: false, error: false, personnel });
+};
+
+export const fetchAppliedFailure = (state: PersonnelDataType) => state.merge({ fetching: false, error: true });
 
 export const moveTo = (state: PersonnelDataType, { category, id }: { category: string, id: number }) => {
   const updatedValue = assoc('category', category, state.personnel[id]);
@@ -65,7 +68,7 @@ export const searchText = (state: PersonnelDataType, { search }: { search: { [st
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.PERSONNEL_FETCH]: fetchApplied,
   [Types.PERSONNEL_FETCH_SUCCESS]: fetchAppliedSuccess,
-  [Types.PERSONNEL_FETCH_FAILURE]: fetchAppliedSuccessFailure,
+  [Types.PERSONNEL_FETCH_FAILURE]: fetchAppliedFailure,
   [Types.PERSONNEL_MOVE_TO]: moveTo,
   [Types.PERSONNEL_SEARCH]: searchText,
 });

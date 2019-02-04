@@ -1,5 +1,5 @@
 import { formatter, transformLocation, transformUsers, isSubStringByProp, isVisibleBySearch } from '../Helper';
-import mock from './Mock';
+import mock from '../Mock';
 
 describe('formatter suite', () => {
   it('should capitalize', () => {

@@ -2,7 +2,7 @@
 
 ## Overview
 
-Personnel crew app main goal is to help with the hiring and onboarding of crew personnel.
+Personnel crew's app main goal is to help with the hiring and onboarding of crew personnel.
 
 ## Usage
 

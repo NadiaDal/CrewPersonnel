@@ -4,7 +4,7 @@
   "description": "App to help with the hiring and onboarding of crew personnel",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config ./webpack.config.js --mode development",
+    "start": "cp src/index.html dist/index.html && webpack-dev-server --config ./webpack.config.js --mode development",
     "test": "node node_modules/jest/bin/jest.js",
     "lint": "node node_modules/.bin/eslint src",
     "flow": "node node_modules/.bin/flow"
